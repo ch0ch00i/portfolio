@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible"
+    tools:context="com.example.game.MainActivity">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/title"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
+
+    <LinearLayout
+        android:layout_width="404dp"
+        android:layout_height="596dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="2dp"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/b1"
+            android:layout_width="wrap_content"
+            android:layout_height="291dp"
+            app:srcCompat="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/start"
+            android:layout_width="match_parent"
+            android:layout_height="124dp"
+            android:background="@null"
+            android:onClick="startbtn"
+            app:srcCompat="@drawable/blank"
+            android:layout_weight="2.12" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="330dp"
+            android:layout_height="58dp"
+            android:scaleType="fitEnd"
+            app:srcCompat="@drawable/gogo" />
+
+        <ImageView
+            android:id="@+id/b2"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:layout_weight="0.48"
+            app:srcCompat="@drawable/blank" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,50 @@
+[아두이노]
+초음파 센서를 작동시키고 거리를 측정한다.
+void setup()
+{
+    Serial.begin(9600); 
+    pinMode(2, OUTPUT); 
+    pinMode(3, INPUT); 
+}
+ 
+void loop()
+{
+    digitalWrite(2, LOW); 
+    digitalWrite(3, LOW); 
+    delayMicroseconds(2); 
+    digitalWrite(2, HIGH); 
+    delayMicroseconds(10); 
+    digitalWrite(2, LOW); 
+    long duration = pulseIn(3, HIGH);
+    long distance = ((long)((331 + 0.6 * ((analogRead(A0)*5.0/1024)-0.5)*100) 
+    * duration) / 10000) / 2;
+ if(distance <= 20)
+ {
+  Serial.write(distance);
+  Serial.print(distance);
+   /* Serial.print("cm");
+    Serial.println();
+    // 시리얼 모니터에 거리 값 cm 단위로 나타내는 코드. 필요로 할 시 추가한다.
+  //*/
+  }
+    delay(3000);
+}
+
+[프로세싱]
+아두이노에서 측정한 거리를 토대로 큐보를 작동한다
+import processing.serial.*;	//아두이노 데이터를 불러들이는 라이브러리
+Serial port;
+int val;
+
+void setup(){
+size(100,100);
+port = new Serial(this, Serial.list()[0],9600);
+}
+void draw(){
+if(port.available()>0)
+{
+  val = port.read();
+  launch("C:/Users/-/Desktop/a.wav");
+    delay(7000);
+}
+}

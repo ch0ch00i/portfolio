@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.game.Main3Activity">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/back"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="3dp" />
+
+    <LinearLayout
+        android:layout_width="390dp"
+        android:layout_height="522dp"
+        android:orientation="vertical"
+        android:weightSum="1"
+        tools:layout_editor_absoluteX="-4dp"
+        tools:layout_editor_absoluteY="-8dp">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            app:srcCompat="@drawable/blank" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="225dp"
+            android:orientation="horizontal"
+            android:layout_weight="0.27"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/imageView32"
+                android:layout_width="41dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/blank"
+                android:layout_weight="0.12" />
+
+            <ImageButton
+                android:id="@+id/imageButton5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.09"
+                android:background="@null"
+                android:onClick="c1"
+                app:srcCompat="@drawable/ba1" />
+
+            <ImageButton
+                android:id="@+id/imageButton6"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.13"
+                android:background="@null"
+                android:onClick="c2"
+                app:srcCompat="@drawable/ba2" />
+
+            <ImageButton
+                android:id="@+id/imageButton7"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.09"
+                android:background="@null"
+                android:onClick="c3"
+                app:srcCompat="@drawable/ba2" />
+
+            <ImageButton
+                android:id="@+id/imageButton8"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.14"
+                android:background="@null"
+                android:onClick="c4"
+                app:srcCompat="@drawable/ba3" />
+
+            <ImageButton
+                android:id="@+id/imageButton9"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.06"
+                android:background="@null"
+                android:onClick="c5"
+                app:srcCompat="@drawable/ba1" />
+
+            <ImageButton
+                android:id="@+id/imageButton10"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.12"
+                android:background="@null"
+                android:onClick="c6"
+                app:srcCompat="@drawable/ba2" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView33"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            app:srcCompat="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/imageButton15"
+            android:layout_width="255dp"
+            android:layout_height="60dp"
+            android:background="@null"
+            android:elevation="0dp"
+            android:onClick="pop"
+            android:scaleType="fitEnd"
+            app:srcCompat="@drawable/finish" />
+
+        <ImageView
+            android:id="@+id/imageView35"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/imageButton16"
+            android:layout_width="256dp"
+            android:layout_height="60dp"
+            android:background="@null"
+            android:elevation="0dp"
+            android:onClick="reset"
+            android:scaleType="fitEnd"
+            app:srcCompat="@drawable/reset" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

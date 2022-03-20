@@ -1,0 +1,211 @@
+﻿<?php session_start();  ?>
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+</head>
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<style media="screen">
+body
+{
+  margin: 0 auto;
+  background-image: url('back.jpg');
+  background-size: 100%;
+  text-align:center;
+  background-attachment: scroll;
+  <!-- background-repeat: no-repeat;-->
+
+}
+
+.white
+{
+  width: 100%;
+  height: auto;
+  background-color: white;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.in{
+  display: block;
+  margin: 0 auto;
+  width: 989px;
+}
+.login{
+  float: right;
+  font-size: 1.0em;
+  color:grey;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+.center{
+  margin: 0 auto;
+  display: block;
+}
+@in.panel{
+  display: table;
+  max-width: 100%;
+  margin: 0 auto;
+  width:50px;
+}
+.text{
+  text-align: center;
+}
+a { text-decoration: none; }
+a:visited{text-decoration: none; color: grey;}
+nav ul {
+margin-left: 40px;
+margin-top: -50px;
+}
+
+nav ul li {
+  display: inline-block;
+  position: relative;
+}
+
+nav ul li a {
+  color: grey; /*글자색*/
+  display: block;
+  font-size: 20px;
+  padding: 15px 14px;
+  transition: 0.3s linear;
+  width: 180px;
+}
+
+nav ul li:hover { background:#EAEAEA; }
+
+nav ul li ul {
+  font-size: 0;
+  margin: 0;
+  padding: 0;
+  border-bottom: 15px solid #FFD9FA;
+  display: none;
+  position: absolute;
+  width: 210px;  z-index: 10000;
+}
+
+
+nav ul li ul li:first-child { border-top: none; }
+
+nav ul li ul li a {
+  background: white;
+  display: block;
+
+}
+
+nav ul li ul li a:hover { /*background: blue;*/
+animation-duration: 1s; animation-name: rainbowLink; animation-iteration-count: infinite;
+ }
+ @keyframes rainbowLink {
+  0% { color:pink;}
+  25% { color: #00D8FF;/*쨍한하늘*/ }
+  50% { color:#FAED7D; /*연한노랑*/}
+  70% { color:#B7F0B1; }
+  100% { color: pink; }
+ }
+
+.font{
+  color: grey; /*글자색*/
+  display: block;
+  margin: 0 auto;
+  font-size: 15px;
+  text-align: center;
+}
+
+.font2{
+  color: #BDBDBD; /*글자색*/
+  display: block;
+  margin: 0 auto;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.font3{
+  color: grey; /*글자색*/
+  display: block;
+  margin: 0 auto;
+  font-size: 15px;
+  margin-top: 140px;
+  margin-left: 14px
+}
+
+.id{
+  color: #BDBDBD; /*글자색*/
+
+  display: block;
+  margin: 0 auto;
+  font-size: 15px;
+  text-align: center;
+
+  margin-top: 30px;
+}
+.idline{
+  width: 300px;
+border: 10px solid white;
+border-bottom: 1px solid grey;
+}
+
+.joinbutton{
+  margin-top: 50px;
+  width: 460px;
+  height: 60px;
+  background-color:#E4F7BA;
+  color: grey;
+  text-align: center;
+  line-height: 60px;
+}
+.joinbutton:hover{
+  background-color:#FFD8D8;
+  animation-duration: 1s; animation-name: rainbowLink; animation-iteration-count: infinite;
+}
+
+</style>
+<body>
+  <div class="white">
+  <div class="in">
+
+    
+    <br/><br />
+    <img class="center" src="logo (2).png" width="600px"/>
+
+<br/><br/><br/>
+<img class="center" src="check.png" width="30px;" height="30px;"/><br/>
+<label class="font">JOIN</label>
+<p class="font2">회원가입을 위해 아래 정보를 기재해주세요.</p>
+<br/><br/><br/>
+
+<table align=center>
+ <form name="PHP" method='post' action='join.php'>
+
+ <td>
+  <span class="id">아이디</p><input name="client_id" class="idline" type="text"/>
+  <span class="id">비밀번호</p><input name="client_pw" class="idline"  type="password"/>
+  <span class="id">비밀번호 확인</p><input name="pwc" class="idline"  type="password"/>
+  <span class="id">생년월일</p><input name="client_bd" class="idline" maxlength="6" placeholder="YYMMDD" type="text"/>
+
+ </td>
+  </table>
+ <center><input value="회원가입" type="submit" class="joinbutton" ></center>
+
+ </form>
+ </div> <!-- endof namecard_box -->
+
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+$('nav li').hover(
+  function() {
+	  $('ul', this).stop().slideDown(200);
+  },
+	function() {
+    $('ul', this).stop().slideUp(200);
+  }
+);
+</script>
+
+</body>
+</html>

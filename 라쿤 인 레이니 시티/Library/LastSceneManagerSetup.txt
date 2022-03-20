@@ -1,0 +1,5 @@
+sceneSetups:
+- path: "C:/Users/1l11l/OneDrive/\uBC14\uD0D5 \uD654\uBA74/\uC218\uC5C5/\uC720\uB2C8\uD2F0/New
+    Unity Project_p/Assets/ga.unity"
+  isLoaded: 1
+  isActive: 1

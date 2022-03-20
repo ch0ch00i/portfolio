@@ -1,0 +1,31 @@
+import os
+import glob
+import random
+import subprocess
+
+def happy_mp3():
+	randomfile = random.choice(os.listdir("/home/pi/Documents/Python_projects/happy_mp3/"))
+	print(randomfile)
+	speak = "mpg321 ./happy_mp3/"+ randomfile +" -a convertQBO"
+	result = subprocess.call(speak, shell = True)
+
+def sad_mp3():
+	randomfile = random.choice(os.listdir("/home/pi/Documents/Python_projects/sad_mp3/"))
+	print(randomfile)
+	speak = "mpg321 ./sad_mp3/"+ randomfile +"-a convertQBO"
+	result = subprocess.call(speak, shell = True)
+
+
+def angry_mp3():
+	randomfile = random.choice(os.listdir("/home/pi/Documents/Python_projects/angry_mp3/"))
+	print(randomfile)
+	speak = "mpg321 ./angry_mp3/"+ randomfile +"-a convertQBO"
+	result = subprocess.call(speak, shell = True)
+
+ 
+def sleepy_mp3():
+	randomfile = random.choice(os.listdir("/home/pi/Documents/Python_projects/sleepy_mp3/"))
+	print(randomfile)
+	speak = "mpg321 ./sleepy_mp3/"+ randomfile +"-a convertQBO"
+	result = subprocess.call(speak, shell = True)
+	

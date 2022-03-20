@@ -1,0 +1,215 @@
+	
+class QBOtalk:
+    def __init__(self):
+		config = yaml.safe_load(open("/home/pi/Documents/config.yml"))
+
+		CLIENT_ACCESS_TOKEN = config["tokenAPIai"]
+		CLIENT_ACCESS_TOKEN = '-'
+		print ("TOKEN: " + CLIENT_ACCESS_TOKEN)
+		#	You can enter your token in the next line
+		#        CLIENT_ACCESS_TOKEN = 'YOUR_TOKEN'
+		# obtain audio from the microphone
+		self.r = sr.Recognizer()
+		self.ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
+		self.Response = "hello"
+		self.GetResponse = False
+		self.GetAudio = False
+		self.strAudio = ""
+		self.config = config
+
+		for i, mic_name in enumerate (sr.Microphone.list_microphone_names()):
+			if(mic_name == "dmicQBO_sv"):
+				self.m = sr.Microphone(i)
+		with self.m as source:        
+			self.r.adjust_for_ambient_noise(source)
+ 
+    def Decode(self, audio):
+		try:
+			if (self.config["language"] == "spanish"):
+				str = self.r.recognize_google(audio, language="es-ES")
+			else:
+				str = self.r.recognize_google(audio)
+			print ("LISTEN: " + str)
+			if "game" in str:
+				LEVEL = 1
+				
+				while True:
+					print("LEVEL: ", LEVEL)
+					MSG, LEVEL = detect_blinks(LEVEL)
+					
+					#tts = gTTS(text = MSG, lang = 'en') #tts 
+					#tts.save("/home/pi/Documents/Python_projects/audio/answer.mp3")
+					#speak = "mpg321 /home/pi/Documents/Python_projects/audio/answer.mp3 -a convertQBO"
+					speak = "espeak -ven+f3 \"" + MSG + "\" --stdout  | aplay -D convertQBO"
+					result = subprocess.call(speak, shell = True)
+					if LEVEL>3:
+						break
+					TEXT = "Do you want to continue?"
+					K_TEXT = translate_text(TEXT, 'ko')
+					speak = "espeak -ven+f3 \"" + K_TEXT + "\" --stdout  | aplay -D convertQBO"
+					result = subprocess.call(speak, shell = True)
+					time.sleep(1)
+					print("Do you want to continue?")
+					
+					with self.m as s:
+						ad = self.r.listen(s, 4)
+					str2 = self.r.recognize_google(ad)
+
+					print(str2)
+					
+					if "no" in str2:
+						TEXT = "Done"
+						K_TEXT = translate_text(TEXT, 'ko')
+						speak = "espeak -ven+f3 \"" + K_TEXT + "\" --stdout  | aplay -D convertQBO"
+						result = subprocess.call(speak, shell = True)
+						break
+					else:
+						speak = "espeak -ven+f3 \"" + "continue" + "\" --stdout  | aplay -D convertQBO"
+						result = subprocess.call(speak, shell = True)
+
+				str = "Go to the First step"
+				print("Game over ")
+				
+			elif "music" in str:
+
+				MSG2 = "How are you feeling today?"
+				K_TEXT2 = translate_text(MSG2, 'ko')
+				speak = "espeak -ven+f3 \"" + K_TEXT2 + "\" --stdout  | aplay -D convertQBO"
+				result = subprocess.call(speak, shell = True)
+				time.sleep(1)
+				print("2")
+				time.sleep(1)
+				print("1\nanswer")
+					
+				str = self.r.recognize_google(audio)
+				print(str)
+				if "happy" in str:
+					happy_mp3()
+					if "quit" in str:
+						pass
+				elif "sad" in str:
+					sad_mp3()
+					str = self.r.recognize_google(audio)
+					if "quit" in str:
+						pass
+				elif "angry" in str:
+					angry_mp3()
+					str = self.r.recognize_google(audio)
+					if "quit" in str:
+						pass
+				elif "sleepy" in str:
+					sleepy_mp3()
+					str = self.r.recognize_google(audio)
+					if "quit" in str:
+						pass
+				str = "Go to the First step"
+				
+			self.strAudio = str
+			request = self.ai.text_request()
+			request.query = str
+			response = request.getresponse()
+			jsonresp = response.read()
+			data = json.loads(jsonresp)
+			str_resp = data["result"]["fulfillment"]["speech"]
+
+		except sr.UnknownValueError:
+			str_resp = ""
+		except sr.RequestError as e:
+			str_resp = "Could not request results from Speech Recognition service"
+		return str_resp
+
+    def SpeechText(self, text_to_speech):
+		self.config = yaml.safe_load(open("/home/pi/Documents/config.yml"))
+		#print ("config:" + str(self.config))
+		print ("3. before translate: " + text_to_speech)
+		text_to_speech = translate_text(text_to_speech,'ko')
+		speak = "espeak -ven+f3 \"" + text_to_speech + "\" --stdout  | aplay -D convertQBO"
+		#speak = "espeak -ven+f3 \"" + text_to_speech + "\" --stdout  | aplay -D convertQBO" #gtts ??? x ???
+		#tts = gTTS(text = text_to_speech, lang = 'ko') #tts
+		#tts.save("/home/pi/Documents/Python_projects/audio/say.mp3") #tts audio file save
+		#speak = "mpg321 /home/pi/Documents/Python_projects/audio/say.mp3 -a convertQBO" #???????? ????
+		#mpg321 ?????? ????? ??? "sudo apt-get install mpg321"
+	
+		print ("4. QBO talk : " + text_to_speech)
+		result = subprocess.call(speak, shell = True) #play audio file
+		#subprocess?? python scrip?? ??? ???? ??????? ???ес???? ??????? ????? ???
+
+    def callback(self, recognizer, audio):
+		try:
+			self.Response = self.Decode(audio)
+			self.GetResponse = True
+			print("2. Qbo is going to say something in a bit")
+			self.SpeechText(self.Response)
+		except:
+			return
+        
+    def callback_listen(self, recognizer, audio):
+		print("callback listen")
+		try:
+			#strSpanish = self.r.recognize_google(audio,language="es-ES")
+		#	    with open("microphone-results.wav", "wb") as f:
+		#    		f.write(audio.get_wav_data())
+			if (self.config["language"] == "spanish"):
+					self.strAudio = self.r.recognize_google(audio, language="es-ES")
+			else:
+					self.strAudio = self.r.recognize_google(audio)
+
+			self.strAudio = self.r.recognize_google(audio)
+			self.GetAudio = True
+			print("listen: " + self.strAudio)
+			#print("listenSpanish: ", strSpanish)
+			#self.SpeechText(self.Response)
+		except:
+			print("callback listen exception")
+			self.strAudio = ""
+		return
+
+    def Start(self):
+        print("Say something!")
+        self.r.operation_timeout = 10
+        with self.m as source:
+            audio = self.r.listen(source = source, timeout = 2)
+
+        # recognize speech using Google Speech Recognition
+
+        Response = self.Decode(audio) 
+        self.SpeechText(Response)
+
+        
+    def StartBack(self):
+        with self.m as source:
+            self.r.adjust_for_ambient_noise(source)
+
+        print("1. start background listening")
+
+        return self.r.listen_in_background(self.m, self.callback)
+
+    def StartBackListen(self):
+		
+        with self.m as source:
+            self.r.adjust_for_ambient_noise(source)
+
+        print("start background only listening")
+
+        return self.r.listen_in_background(self.m, self.callback_listen)
+
+
+if __name__ == "__main__":
+	qbo = QBOtalk()
+	qbo.Start()
+
+	while True:
+
+		print("start background listening")
+		listen_thd = qbo.StartBack()
+
+		for _ in range(100):
+			if qbo.GetResponse:
+				listen_thd(wait_for_stop = True)
+				qbo.SpeechText(qbo.Response)
+				qbo.GetResponse = False
+				break
+			time.sleep(0.5)
+		print("End listening")
+		
+
